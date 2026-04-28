@@ -1,6 +1,12 @@
 #!/bin/bash
 echo "Setting up Laravel..."
 
+# Copy .env file
+cp .env.example .env
+
+# Set the application key
+sed -i 's/APP_KEY=/APP_KEY=your-app-key-here/' .env
+
 # Generate key
 docker exec -it laravel_container php artisan key:generate --force
 
