@@ -6,7 +6,7 @@ services:
     container_name: laravel_container
     restart: unless-stopped
     env_file:
-      - ./backend/.emv
+      - ./backend/.env
     depends_on:
       - mysql_db
       - redis
