@@ -1,0 +1,14 @@
+# Database data (folder mysql di lokal)
+mysql/
+
+# Laravel files
+backend/.env
+backend/vendor/
+backend/storage/*.key
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/storage/logs/*
+
+# Docker/OS files
+.DS_Store
