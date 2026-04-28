@@ -26,12 +26,14 @@ services:
       - ./backend:/var/www/
 
   mysql_db:
-    image: mysql
+    image: mysql:8.0
     container_name: db_container
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: sKpI@2026
+      MYSQL_DATABASE: skpi
+      MYSQL_USER: root
+      MYSQL_PASSWORD: sKpI@2026
     volumes:
       - db_data:/var/lib/mysql
 
