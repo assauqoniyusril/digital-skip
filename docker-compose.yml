@@ -5,13 +5,16 @@ services:
       context: ./docker/php
     container_name: laravel_container
     restart: unless-stopped
+    env_file:
+      - ./backend/.emv
     depends_on:
       - mysql_db
+      - redis
     volumes:
       - ./backend:/var/www/
 
   nginx:
-    image: nginx
+    image: nginx:stable-alpine
     container_name: nginx_container
     restart: unless-stopped
     ports:
@@ -27,11 +30,8 @@ services:
     container_name: db_container
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydb
-    ports:
-      - "3306:3306"
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     volumes:
       - db_data:/var/lib/mysql
 
