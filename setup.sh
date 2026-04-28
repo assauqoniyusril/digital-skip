@@ -2,7 +2,7 @@
 echo "Setting up Laravel..."
 
 # Generate key
-docker exec -it laravel_container php artisan key:generate
+docker exec -it laravel_container php artisan key:generate --force
 
 # Create tmp directory
 mkdir -p tmp storage/framework/cache/data
@@ -18,7 +18,7 @@ docker exec -it laravel_container php artisan storage:link
 docker exec -it laravel_container php artisan optimize:clear
 
 # Run require filament
-docker exec -it laravel_container composer require filament/filament:4.0
+docker exec -it laravel_container composer require filament/filament:"^4.0"
 
 # Run install Filament
 docker exec -it laravel_container php artisan filament:install
