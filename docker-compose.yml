@@ -30,10 +30,10 @@ services:
     container_name: db_container
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD=sKpI@2026
-      MYSQL_DATABASE=skpi
-      MYSQL_USER=root
-      MYSQL_PASSWORD=sKpI@2026
+      - MYSQL_ROOT_PASSWORD=sKpI@2026
+      - MYSQL_DATABASE=skpi
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=sKpI@2026
     volumes:
       - db_data:/var/lib/mysql
 
