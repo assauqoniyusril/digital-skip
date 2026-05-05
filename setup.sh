@@ -1,35 +1,34 @@
 #!/bin/bash
-echo "Setting up Laravel..."
+echo "Setting up Laravel for VPS..."
 
-# Copy .env file
-cp .env.example .env
+# Copy .env file if not exists
+if [ ! -f .env ]; then
+    cp .env.example .env
+fi
 
-# Set the application key
-sed -i 's/APP_KEY=/APP_KEY=your-app-key-here/' .env
-
-# Generate key
-docker exec -it laravel_container php artisan key:generate --force
+# Set the application key if not set
+if grep -q "APP_KEY=.*" .env && ! grep -q "APP_KEY=base64:" .env; then
+    php artisan key:generate --force
+fi
 
 # Create tmp directory
 mkdir -p tmp storage/framework/cache/data
 chmod 777 tmp storage/framework/cache/data
 
 # Run migrations
-docker exec -it laravel_container php artisan migrate
+php artisan migrate --force
 
 # Create storage link
-docker exec -it laravel_container php artisan storage:link
+php artisan storage:link
 
 # Clear cache
-docker exec -it laravel_container php artisan optimize:clear
+php artisan optimize:clear
 
-# Run require filament
-docker exec -it laravel_container composer require filament/filament:"^4.0"
-
-# Run install Filament
-docker exec -it laravel_container php artisan filament:install
-
-# Run filament panel install
-docker exec -it laravel_container php artisan make:filament-panel Staff
+# Install Filament if not already installed
+if ! php artisan filament:install --help > /dev/null 2>&1; then
+    composer require filament/filament:"^4.0"
+    php artisan filament:install
+    php artisan make:filament-panel Staff
+fi
 
 echo "Setup complete!"
