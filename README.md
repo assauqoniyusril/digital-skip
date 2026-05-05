@@ -119,7 +119,7 @@ cp .env.example .env
 ## 3. Start Docker Containers
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ---
